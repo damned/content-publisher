@@ -1,4 +1,6 @@
 class ContentController < ApplicationController
+  skip_forgery_protection
+
   def edit
     @edition = Edition.find_current(document: params[:document])
     assert_edition_state(@edition, &:editable?)
@@ -21,7 +23,13 @@ class ContentController < ApplicationController
     end
   end
 
-private
+  def include_forgery_protection?
+    true
+  end
+
+  helper_method :include_forgery_protection?
+
+  private
 
   def issues_link_options(edition)
     format_specific_options = edition.document_type.contents.each_with_object({}) do |field, memo|

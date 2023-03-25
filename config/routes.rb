@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     get "/document-imports/:document_import_id" => "whitehall_migration#document_import", as: :whitehall_migration_document_import
   end
 
+  scope "/content-editor-api" do
+    get "new" => "content_editor_api#new"
+  end
+
   get "/documents/publishing-guidance" => "new_document#guidance", as: :guidance
   get "/documents/new" => "new_document#show", as: :new_document
   post "/documents/new" => "new_document#select"
